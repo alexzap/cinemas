@@ -19,9 +19,11 @@ Route::get('/', function () {
     return response()->json(['name' => 'Abigail', 'state' => 'CA']);
 });
 
-Route::get('name/{id}', function ($id) {
-    return 'Name '.$id;
-});
+//Route::get('name/{id}', function ($id) {
+//    return 'Name '.$id;
+//});
 
 //Route::controller(Controller::detect());
 Route::resource('cinemas', 'CinemaController');
+
+Route::put('cinemas/{id}', 'CinemaController@update');

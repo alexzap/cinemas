@@ -2,11 +2,24 @@
 
 namespace App\Http\Controllers;
 use DB;
+use Response;
+use Request;
 
 class CinemaController extends Controller
 {    
     public function index() {
-    	$results = DB::select('select * from cinema', array(1));
-    	echo $results;
+    	//$session_times = DB::table('session_times')->get();
+    	//return view('cinema', ['cinema' => $cinema]);
+    	
+    	$cinemaId = Request::input('id');
+
+    	$session_times = DB::table('session_times')
+    	->join('cinema', 'session_times.cinema_id', '=', 'cinema.id')
+    	->join('movies', 'session_times.movie_id', '=', 'movies.id')
+    	->select('movies.title')
+    	->where('cinema.id', '=', $cinemaId)
+    	->get();
+    	return Response::json($session_times);
     }
+
 }
