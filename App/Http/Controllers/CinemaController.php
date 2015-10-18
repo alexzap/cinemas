@@ -16,7 +16,7 @@ class CinemaController extends Controller
     	$session_times = DB::table('session_times')
     	->join('cinema', 'session_times.cinema_id', '=', 'cinema.id')
     	->join('movies', 'session_times.movie_id', '=', 'movies.id')
-    	->select('movies.title')
+    	->select('movies.title', 'session_times.date_time')
     	->where('cinema.id', '=', $cinemaId)
     	->get();
     	return Response::json($session_times);
